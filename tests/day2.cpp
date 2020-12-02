@@ -12,9 +12,9 @@ const std::string test_input = R"(1-3 a: abcde
 )";
 
 const std::vector<day2::PasswordSpec> test_passwords{
-    {1, 3, 'a', "abcde"},
-    {1, 3, 'b', "cdefg"},
-    {2, 9, 'c', "ccccccccc"},
+    { .min_count=1, .max_count=3, .character='a', .password="abcde"},
+    { .min_count=1, .max_count=3, .character='b', .password="cdefg"},
+    { .min_count=2, .max_count=9, .character='c', .password="ccccccccc"},
 };
 
 TEST(TestDay2, TestParse) {
@@ -27,17 +27,17 @@ TEST(TestDay2, TestParse) {
 }
 
 TEST(TestDay2, TestPart1) {
-    ASSERT_TRUE(test_passwords.at(0).is_valid_part1());
-    ASSERT_FALSE(test_passwords.at(1).is_valid_part1());
-    ASSERT_TRUE(test_passwords.at(2).is_valid_part1());
+    ASSERT_TRUE(check_validity_part1(test_passwords.at(0)));
+    ASSERT_FALSE(check_validity_part1(test_passwords.at(1)));
+    ASSERT_TRUE(check_validity_part1(test_passwords.at(2)));
 
     ASSERT_EQ(day2::part1(test_passwords), 2);
 }
 
 TEST(TestDay2, TestPart2) {
-    ASSERT_TRUE(test_passwords.at(0).is_valid_part2());
-    ASSERT_FALSE(test_passwords.at(1).is_valid_part2());
-    ASSERT_FALSE(test_passwords.at(2).is_valid_part2());
+    ASSERT_TRUE(check_validity_part2(test_passwords.at(0)));
+    ASSERT_FALSE(check_validity_part2(test_passwords.at(1)));
+    ASSERT_FALSE(check_validity_part2(test_passwords.at(2)));
 
     ASSERT_EQ(day2::part2(test_passwords), 1);
 }

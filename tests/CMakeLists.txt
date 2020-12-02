@@ -17,6 +17,7 @@ macro(aoc_add_test TESTNAME)
     target_link_libraries(${TESTNAME} gtest gmock gtest_main aocmaxnoe20)
     add_test(NAME ${TESTNAME} COMMAND ${TESTNAME})
     set_target_properties(${TESTNAME} PROPERTIES FOLDER tests)
+    target_compile_features(${TESTNAME} PRIVATE cxx_std_20)
 endmacro()
 
 

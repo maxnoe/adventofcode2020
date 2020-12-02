@@ -4,6 +4,9 @@ set(MAX_DAY 2)
 
 project(aoc_maxnoe_2020 VERSION 0.${MAX_DAY}.1 LANGUAGES CXX)
 
+# IDE support
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 
 find_package(OpenSSL REQUIRED)
 
