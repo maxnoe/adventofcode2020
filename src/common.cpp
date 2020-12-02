@@ -1,7 +1,7 @@
 #define CPPHTTPLIB_OPENSSL_SUPPORT
 #include <string>
 #include <httplib.h>
-#include <aocmaxnoe2020.h>
+#include <aocmaxnoe2020/aocmaxnoe2020.h>
 
 namespace aocmaxnoe2020 {
 
