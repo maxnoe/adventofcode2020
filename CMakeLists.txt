@@ -1,9 +1,8 @@
 cmake_minimum_required(VERSION 3.15...3.19 FATAL_ERROR)
 
+set(MAX_DAY 2)
 
-project(aoc_maxnoe_2020 VERSION 0.1.1 LANGUAGES CXX)
-
-
+project(aoc_maxnoe_2020 VERSION 0.${MAX_DAY}.1 LANGUAGES CXX)
 
 
 find_package(OpenSSL REQUIRED)
@@ -33,6 +32,6 @@ if(BUILD_TESTING)
 endif()
 
 
-foreach(day RANGE 1 1)
+foreach(day RANGE 1 ${MAX_DAY})
     add_day(${day})
 endforeach(day)

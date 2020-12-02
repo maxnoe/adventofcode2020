@@ -20,4 +20,6 @@ macro(aoc_add_test TESTNAME)
 endmacro()
 
 
-aoc_add_test(test_day1 day1.cpp)
+foreach(day RANGE 1 ${MAX_DAY})
+    aoc_add_test(test_day${day} day${day}.cpp)
+endforeach(day)
