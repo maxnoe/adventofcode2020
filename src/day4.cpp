@@ -5,6 +5,7 @@
 #include <string_view>
 #include <regex>
 #include <ranges>
+#include <algorithm>
 
 
 namespace aocmaxnoe2020 { namespace day4 {
@@ -41,12 +42,11 @@ passports_t parse_input(const std::string& input) {
 
 
 bool has_all_required(const passport_t& passport) {
-    size_t present_keys = std::count_if(
+    return std::ranges::all_of(
         REQUIRED_KEYS_1.cbegin(),
         REQUIRED_KEYS_1.cend(),
-        [&passport](const std::string& key){return passport.contains(key);
-    });
-    return present_keys == REQUIRED_KEYS_1.size();
+        [&passport](const std::string& key){return passport.contains(key);}
+    );
 }
 
 bool is_valid(const passport_t& passport) {
