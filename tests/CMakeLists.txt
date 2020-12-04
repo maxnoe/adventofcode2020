@@ -20,7 +20,7 @@ macro(aoc_add_test TESTNAME)
     target_compile_features(${TESTNAME} PRIVATE cxx_std_20)
 endmacro()
 
-
+aoc_add_test(test_common test_common.cpp)
 foreach(day RANGE 1 ${MAX_DAY})
     aoc_add_test(test_day${day} day${day}.cpp)
 endforeach(day)
