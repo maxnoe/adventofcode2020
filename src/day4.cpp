@@ -50,6 +50,8 @@ bool has_all_required(const passport_t& passport) {
 }
 
 bool is_valid(const passport_t& passport) {
+    if (!has_all_required(passport)) return false;
+
     int byr = std::stoi(passport.at("byr"));
     if (byr < 1920 || byr > 2002) return false;
 
@@ -91,11 +93,7 @@ int part1(const passports_t& passports) {
 }
 
 long part2(const passports_t& passports) {
-    int valid = 0;
-    for(const passport_t& passport : passports) {
-        if (has_all_required(passport) && is_valid(passport)) valid++;
-    }
-    return valid;
+    return std::count_if(passports.begin(), passports.end(), &is_valid);
 }
 
 }}
