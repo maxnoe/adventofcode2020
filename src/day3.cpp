@@ -8,12 +8,12 @@ namespace aocmaxnoe2020 { namespace day3 {
 
 
 trees_t parse_input(const std::string& input) {
-    std::vector<std::string> lines = split_lines(input);
+    auto lines = split_lines(input);
 
     trees_t trees;
     trees.reserve(lines.size());
 
-    for (const std::string& line: lines) {
+    for (auto line: lines) {
         trees.emplace_back();
         trees.back().reserve(line.size());
 

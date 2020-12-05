@@ -33,24 +33,23 @@ std::string get_input(int day) {
     return res->body;
 }
 
-std::vector<std::string> split(const std::string& str, const std::string& delimiter, bool include_empty) {
-    std::vector<std::string> parts;
-    std::string_view view {str};
+std::vector<std::string_view> split(std::string_view str, std::string_view delimiter, bool include_empty) {
+    std::vector<std::string_view> parts;
 
     size_t pos = 0;
-    while ((pos = view.find(delimiter)) != std::string::npos) {
-        parts.emplace_back(view.substr(0, pos));
-        view.remove_prefix(pos + delimiter.length());
+    while ((pos = str.find(delimiter)) != std::string::npos) {
+        parts.emplace_back(str.substr(0, pos));
+        str.remove_prefix(pos + delimiter.length());
     }
 
-    if (view != "" || include_empty) {
-        parts.emplace_back(view);
+    if (str != "" || include_empty) {
+        parts.emplace_back(str);
     }
 
     return parts;
 }
 
-std::vector<std::string> split_lines(const std::string& input) {
+std::vector<std::string_view> split_lines(std::string_view input) {
     return split(input, "\n", false);
 }
 

@@ -70,7 +70,7 @@ std::vector<PasswordSpec> parse_input(const std::string& input) {
     passwords.reserve(lines.size());
 
     for (auto line: lines) {
-        passwords.push_back(parse_line(line));
+        passwords.push_back(parse_line(std::string(line)));
     }
 
     return passwords;

@@ -33,8 +33,8 @@ passports_t parse_input(const std::string& input) {
     passports_t passports;
     passports.reserve(tokens.size());
 
-    for (const std::string& token: tokens) {
-        passports.push_back(parse_passport(token));
+    for (std::string_view token: tokens) {
+        passports.push_back(parse_passport(std::string(token)));
     }
 
     return passports;

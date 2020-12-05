@@ -12,8 +12,8 @@ std::unordered_set<int> parse_input(const std::string& input) {
     auto lines = split_lines(input);
     std::unordered_set<int> numbers;
 
-    for (const std::string& line: lines) {
-        numbers.insert(std::stoi(line));
+    for (std::string_view line: lines) {
+        numbers.insert(std::stoi(std::string(line)));
     }
 
     return numbers;
