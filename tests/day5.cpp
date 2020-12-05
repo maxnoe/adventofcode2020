@@ -10,6 +10,8 @@ FFFBBBFRRR
 BBFFBBFRLL
 )";
 
+const std::vector<std::string_view> test_inputs = split_lines(test_input);
+
 const std::vector<day5::boarding_pass_t> test_passes = {
     {70, 7},
     {14, 7},
@@ -19,13 +21,10 @@ const std::vector<day5::boarding_pass_t> test_passes = {
 const std::vector<int> ids {567, 119, 820};
 
 TEST(TestDay5, TestParse) {
-    auto boarding_passes = day5::parse_input(test_input);
-
-    ASSERT_EQ(3, boarding_passes.size());
-
     for (size_t i = 0; i < test_passes.size(); i++) {
-        ASSERT_EQ(test_passes.at(i).first, boarding_passes.at(i).first);
-        ASSERT_EQ(test_passes.at(i).second, boarding_passes.at(i).second);
+        auto [row, col] = day5::parse_pass(test_inputs.at(i));
+        ASSERT_EQ(test_passes.at(i).first, row);
+        ASSERT_EQ(test_passes.at(i).second, col);
     }
 }
 
@@ -35,7 +34,7 @@ TEST(TestDay5, TestID) {
     }
 }
 
-TEST(TestDay5, TestPart1) {
-    int max_id = day5::part1(test_passes);
+TEST(TestDay5, TestDay5) {
+    auto [max_id, free_seat] = day5::day5(test_input);
     ASSERT_EQ(820, max_id);
 }

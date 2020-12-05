@@ -8,23 +8,12 @@
 #include <iostream>
 #include <ranges>
 #include <algorithm>
-#include <unordered_set>
+#include <bitset>
 
 
 namespace aocmaxnoe2020 { namespace day5 {
 
-
-std::vector<boarding_pass_t> parse_input(std::string_view input) {
-    auto lines = split_lines(input);
-    std::vector<boarding_pass_t> boarding_passes;
-    boarding_passes.reserve(lines.size());
-
-    for (std::string_view line: lines) {
-        boarding_passes.push_back(parse_pass(line));
-    }
-    return boarding_passes;
-}
-
+using std::views::transform;
 
 int binary_search(std::string_view tokens) {
     int min = 0;
@@ -45,7 +34,6 @@ int binary_search(std::string_view tokens) {
 
 }
 
-
 boarding_pass_t parse_pass(std::string_view line) {
     int row = binary_search(line.substr(0, 7));
     int col = binary_search(line.substr(7, 10));
@@ -54,35 +42,34 @@ boarding_pass_t parse_pass(std::string_view line) {
 
 int pass_id(const boarding_pass_t& pass) {
     auto [row, col] = pass;
-    return row * 8 + col;
+    return row * N_COLS + col;
 }
 
+std::pair<int, int> day5(std::string_view input) {
 
-int part1(const std::vector<boarding_pass_t>& boarding_passes) {
-    return std::ranges::max(boarding_passes | std::views::transform(pass_id));
-    
-}
-int part2(const std::vector<boarding_pass_t>& boarding_passes) {
-    
-    std::unordered_set<int> ids;
-    ids.reserve(boarding_passes.size());
-    for (const boarding_pass_t& pass: boarding_passes) {
-        ids.insert(pass_id(pass));
-    }
+    std::bitset<N_SEATS> is_taken;
+    int min_id = N_SEATS;
+    int max_id = 0;
 
-    for (int row = 0; row < 128; row++) {
-        for (int col = 0; col < 8; col++) {
-            int id = pass_id(std::make_pair(row, col));
+    std::vector<std::string_view> lines = split_lines(input);
+    auto ids = lines | transform(parse_pass) | transform(pass_id);
 
-            if (!ids.contains(id) && ids.contains(id - 1) && ids.contains(id + 1)) {
-                return id;
-            }
+    for (int id: ids){
+        is_taken.set(id);
+
+        if (id < min_id) {
+            min_id = id;
+        } else if (id > max_id) {
+            max_id = id;
         }
     }
 
-    throw std::runtime_error("Did not find free seat");
+    int id;
+    for (id = min_id; id < max_id; id++) {
+        if (!is_taken[id]) break;
+    }
 
-    return 0;
+    return std::make_pair(max_id, id);
 }
 
 

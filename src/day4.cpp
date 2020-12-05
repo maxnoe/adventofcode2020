@@ -66,7 +66,7 @@ bool is_valid(const passport_t& passport) {
     if (!std::regex_match(hcl, hcl_re)) return false;
 
     std::unordered_set<std::string> allowed_colors {"amb", "blu", "brn", "gry", "grn", "hzl", "oth"};
-    if (allowed_colors.count(passport.at("ecl")) == 0) return false;
+    if (!allowed_colors.contains(passport.at("ecl"))) return false;
 
     const std::string& pid = passport.at("pid");
     std::regex pid_re{"[0-9]{9}"};

@@ -9,9 +9,9 @@ using namespace aocmaxnoe2020;
 
 int main() {
     std::string input = get_input(5);
-    auto boarding_passes = day5::parse_input(input);
-    std::cout << "Solution 1: " << day5::part1(boarding_passes) << std::endl;
-    std::cout << "Solution 2: " << day5::part2(boarding_passes) << std::endl;
+    auto [max_id, free_seat] = day5::day5(input);
+    std::cout << "Solution 1: " << max_id << std::endl;
+    std::cout << "Solution 2: " << free_seat << std::endl;
     return 0;
 }
 
