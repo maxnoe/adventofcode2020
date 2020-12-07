@@ -38,8 +38,7 @@ rules_t parse_input(std::string_view input){
     rules.reserve(lines.size());
     for (std::string_view line: lines) {
         // regex does not support string_view yet
-        auto [color, contents] = parse_bag_rule(std::string{line});
-        rules[color] = contents;
+        rules.insert(parse_bag_rule(std::string{line}));
     }
 
     return rules;
@@ -77,13 +76,10 @@ size_t count_bags_inside(const std::string& color, const rules_t rules) {
 
 
 int part1(const rules_t& rules) {
-    int n_total = 0;
-    for (const auto& color: rules | std::views::keys) {
-        if (can_contain(color, "shiny gold", rules)) {
-            n_total++;
-        }
-    }
-    return n_total;
+    return std::ranges::count_if(
+        std::views::keys(rules),
+        [&rules](auto color) {return can_contain(color, "shiny gold", rules);}
+    );
 }
 
 int part2(const rules_t& rules) {
