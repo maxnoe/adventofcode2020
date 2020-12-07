@@ -13,6 +13,7 @@ using contents_t = std::unordered_map<std::string, int>;
 using rules_t = std::unordered_map<std::string, contents_t>;
 
 rules_t parse_input(std::string_view input);
+size_t count_bags_inside(const std::string& color, const rules_t rules);
 int part1(const rules_t& rules);
 int part2(const rules_t& rules);
 

@@ -45,6 +45,8 @@ TEST(TestDay7, TestPart1) {
 }
 
 TEST(TestDay7, TestPart2) {
-    /* ASSERT_EQ(6, day7::part2(test_groups)); */
+    ASSERT_EQ(0, day7::count_bags_inside("faded blue", test_rules));
+    ASSERT_EQ(11, day7::count_bags_inside("vibrant plum", test_rules));
+    ASSERT_EQ(32, day7::part2(test_rules));
 }
 

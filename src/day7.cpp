@@ -61,6 +61,21 @@ bool can_contain(const std::string& color, const std::string& target, const rule
     return false;
 }
 
+
+size_t count_bags_inside(const std::string& color, const rules_t rules) {
+    if (rules.at(color).size() == 0) {
+        return 0;
+    }
+
+    size_t bags = 0;
+    for (const auto& [key, count]: rules.at(color)) {
+        bags += count * (1 + count_bags_inside(key, rules));
+    }
+
+    return bags;
+}
+
+
 int part1(const rules_t& rules) {
     int n_total = 0;
     for (const auto& color: rules | std::views::keys) {
@@ -72,8 +87,7 @@ int part1(const rules_t& rules) {
 }
 
 int part2(const rules_t& rules) {
-    int n_total = 0;
-    return n_total;
+    return count_bags_inside("shiny gold", rules);
 }
 
 }}
