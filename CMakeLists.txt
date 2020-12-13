@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.15...3.19 FATAL_ERROR)
 
-set(MAX_DAY 11)
+set(MAX_DAY 12)
 
 project(aoc_maxnoe_2020 VERSION 0.${MAX_DAY}.1 LANGUAGES CXX)
 
