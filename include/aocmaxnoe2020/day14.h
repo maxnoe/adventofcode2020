@@ -42,7 +42,7 @@ struct Instruction {
 using instructions_t = std::vector<std::shared_ptr<Instruction>>;
 
 struct Program {
-    Mask mask;
+    Mask mask = Mask{};
     std::unique_ptr<Memory> mem;
     instructions_t instructions;
     uint64_t execute();

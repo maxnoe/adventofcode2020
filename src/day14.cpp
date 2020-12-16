@@ -4,6 +4,7 @@
 #include <bitset>
 #include <regex>
 #include <numeric>
+#include <ranges>
 
 namespace aocmaxnoe2020 { namespace day14 {
 
@@ -18,6 +19,32 @@ void StaticMemory::set(size_t address, uint64_t value, const Mask& mask) {
     value &= (~mask.mask_zero);
     value |= mask.mask_one;
     fields[address] = value;
+}
+
+void FloatingMemory::set(size_t address, uint64_t value, const Mask& mask) {
+    address |= mask.mask_one;
+
+    std::vector<uint64_t> addresses;
+
+    std::bitset<36> floating_bits{mask.mask_x};
+    size_t n_adresses = 1ull << floating_bits.count();
+
+    addresses.reserve(n_adresses);
+    addresses.push_back(address);
+
+    for (size_t bit = 0; bit < floating_bits.size(); bit++) {
+        if (!floating_bits[bit]) continue;
+
+        size_t current_size  = addresses.size();
+        for (size_t i = 0; i < current_size; i++) {
+            addresses.push_back(addresses.at(i) ^ (1ull << bit));
+        }
+    }
+
+    for (uint64_t address: addresses) {
+        fields[address] = value;
+    }
+
 }
 
 void SetMem::execute(Memory& mem, Mask& mask) {
@@ -43,7 +70,7 @@ instructions_t parse_input(std::string_view input) {
         } else {
             std::smatch match;
             std::string line_str{line};
-            
+
             if (!std::regex_match(line_str, match, mem_re)) {
                 throw std::runtime_error("Regex did not match: '" + line_str + "'");
             }
@@ -78,12 +105,11 @@ uint64_t part1(const instructions_t& instructions) {
 }
 
 uint64_t part2(const instructions_t& instructions) {
-    /* Program program{ */
-    /*     .mem = std::make_unique<StaticMemory>(), */
-    /*     .instructions = instructions, */
-    /* }; */
-    /* return program.execute(); */
-    return 0;
+    Program program{
+        .mem = std::make_unique<FloatingMemory>(),
+        .instructions = instructions,
+    };
+    return program.execute();
 }
 
 }}

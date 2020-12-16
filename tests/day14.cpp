@@ -12,12 +12,18 @@ mem[7] = 101
 mem[8] = 0
 )";
 
-TEST(TestDay14, TestPart1) {
-    auto program = day14::parse_input(test_input);
-    ASSERT_EQ(165, day14::part1(program));
+const std::string test_input_2 = R"(mask = 000000000000000000000000000000X1001X
+mem[42] = 100
+mask = 00000000000000000000000000000000X0XX
+mem[26] = 1)";
 
+TEST(TestDay14, TestPart1) {
+    auto instructions = day14::parse_input(test_input);
+    ASSERT_EQ(165, day14::part1(instructions));
 }
 
 TEST(TestDay14, TestPart2) {
+    auto instructions = day14::parse_input(test_input_2);
+    ASSERT_EQ(208, day14::part2(instructions));
 }
 
