@@ -17,7 +17,7 @@ const int N_BITS = 36;
 struct Mask {
     uint64_t mask_zero = 0;
     uint64_t mask_one = 0;
-    uint64_t mask_x = 0;
+    uint64_t mask_floating = 0;
 };
 
 
@@ -60,19 +60,19 @@ struct SetMask: public Instruction {
 
         uint64_t mask_zero = 0;
         uint64_t mask_one = 0;
-        uint64_t mask_x = 0;
+        uint64_t mask_floating = 0;
 
         for (size_t i = 0; i < s.size(); i++) {
             uint64_t bit = 1ull << (N_BITS - i - 1);
             switch (s.at(i)) {
                 case '0': mask_zero |= bit; break;
                 case '1': mask_one |= bit; break;
-                case 'X': mask_x |= bit; break;
+                case 'X': mask_floating |= bit; break;
                 default:
                     throw std::runtime_error("Unexpected char '" + std::string{s.at(1)});
             }
         }
-        return std::make_unique<SetMask>(Mask{mask_zero, mask_one, mask_x});
+        return std::make_unique<SetMask>(Mask{mask_zero, mask_one, mask_floating});
     }
 };
 

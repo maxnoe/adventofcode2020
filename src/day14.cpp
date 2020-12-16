@@ -5,7 +5,6 @@
 #include <regex>
 #include <numeric>
 #include <ranges>
-
 namespace aocmaxnoe2020 { namespace day14 {
 
 
@@ -26,7 +25,7 @@ void FloatingMemory::set(size_t address, uint64_t value, const Mask& mask) {
 
     std::vector<uint64_t> addresses;
 
-    std::bitset<36> floating_bits{mask.mask_x};
+    std::bitset<N_BITS> floating_bits{mask.mask_floating};
     size_t n_adresses = 1ull << floating_bits.count();
 
     addresses.reserve(n_adresses);
@@ -51,10 +50,8 @@ void SetMem::execute(Memory& mem, Mask& mask) {
     mem.set(address, value, mask);
 }
 
-void SetMask::execute(Memory&, Mask& mask) {
-    mask.mask_zero = this->mask.mask_zero;
-    mask.mask_one = this->mask.mask_one;
-    mask.mask_x = this->mask.mask_x;
+void SetMask::execute(Memory&, Mask& m) {
+    m = mask;
 }
 
 
