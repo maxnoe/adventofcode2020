@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.15...3.19 FATAL_ERROR)
 
-set(MAX_DAY 16)
+set(MAX_DAY 17)
 
 project(aoc_maxnoe_2020 VERSION 0.${MAX_DAY}.1 LANGUAGES CXX)
 
@@ -10,6 +10,9 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 find_package(OpenSSL REQUIRED)
 
+
+add_subdirectory(vendor/abseil-cpp)
+
 add_library(aocmaxnoe20 src/common.cpp)
 set_property(TARGET aocmaxnoe20 PROPERTY PUBLIC_HEADER include/aocmaxnoe20.h;)
 target_include_directories(aocmaxnoe20 PRIVATE vendor)
@@ -17,6 +20,7 @@ target_include_directories(aocmaxnoe20 PUBLIC include)
 target_link_libraries(aocmaxnoe20 PRIVATE OpenSSL::SSL OpenSSL::Crypto)
 target_compile_options(aocmaxnoe20 PRIVATE -Wall -Wextra -pedantic)
 target_compile_features(aocmaxnoe20 PRIVATE cxx_std_20)
+target_link_libraries(aocmaxnoe20 PUBLIC absl::hash)
 
 
 function(add_day day)
