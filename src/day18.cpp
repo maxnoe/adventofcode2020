@@ -2,6 +2,8 @@
 #include <aocmaxnoe2020/day18.h>
 #include <iostream>
 #include <numeric>
+#include <algorithm>
+#include <ranges>
 
 
 namespace aocmaxnoe2020 { namespace day18 {
@@ -69,7 +71,7 @@ expressions_t parse_input(std::string_view input) {
 
     for (auto line: split_lines(input)) {
         std::string s{line};
-        s.erase(std::remove_if(s.begin(), s.end(), isspace), s.end());
+        s.erase(std::ranges::remove(s, ' ').begin(), s.end());
         expressions.push_back(parse_expression(s));
     }
 
